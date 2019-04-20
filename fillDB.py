@@ -16,6 +16,15 @@ DBSession = sessionmaker(bind=engine)
 session = DBSession()
 app = Flask(__name__)
 
+def addUser(username, password):
+    user = session.query(User).filter_by(username=username).first()
+    if user is not None:
+        print "existing user"
+    else:
+        user = User(username = username)
+        user.hash_password(password)
+        session.add(user)
+        session.commit()
 
 def addCategory(id, name):
     cat = session.query(Category).filter_by(id = id).first()
@@ -40,6 +49,7 @@ def addItem(id,title, des, cat_id):
     #                  'title': item.title, 'cat ID': item.cat_id })
 
 if __name__ == '__main__':
+    addUser('Admin', '123')
     addCategory(1, 'Hobbies')
     addItem(1, 'Reading', 'Reading is helpful to gain knowledge and relax', 1 )
     addItem(2, 'Shopping', 'Some people feel great while shopping', 1 )
