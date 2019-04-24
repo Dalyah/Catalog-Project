@@ -1,0 +1,26 @@
+{% extends "main.html" %}
+
+{% block content %}
+
+  <div class="row content">
+    <div class="col-sm-2 sidenav">
+    </div>
+    <div class="col-sm-8 text-left">
+      <h1>Items of {{ cat }} </h1>
+      <hr>
+
+      <ul>
+        {% for item in items %}
+        <a href="{{url_for('showItemDes', item= item.title ,cat = item.cat_id )}}">
+        <li>{{ item.title }}   </li>
+          </a>
+        {% endfor %}
+
+      </ul>
+
+
+    </div>
+    <div class="col-sm-2 sidenav">
+    </div>
+  </div>
+{% endblock %}

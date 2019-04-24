@@ -1,0 +1,38 @@
+{% extends "main.html" %}
+
+{% block content %}
+
+  <div class="row content">
+    <div class="col-sm-1 sidenav">
+    </div>
+    <div class="col-sm-4 text-left">
+      <h1>Categories</h1>
+      <hr>
+      <ul>
+        {% for cat in categories %}
+        <a href="{{url_for('showAllItems', cat = cat.id )}}">
+        <li>{{ cat.name }}   </li>
+          </a>
+        {% endfor %}
+
+      </ul>
+
+
+    </div>
+    <div class="col-sm-6 text-left">
+      <h1>Latest Items</h1>
+      <hr>
+      <ul>
+        {% for item in items %}
+        <a href="{{url_for('showItemDes', item = item.title, cat = item.cat_id )}}">
+        <li>{{ item.title }}   </li>
+          </a>
+        {% endfor %}
+
+      </ul>
+
+    </div>
+    <div class="col-sm-1 sidenav">
+    </div>
+  </div>
+{% endblock %}
