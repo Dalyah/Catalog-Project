@@ -24,7 +24,7 @@
       <hr>
       <ul>
         {% for item in items %}
-        <a href="{{url_for('showItemDes', item = item.title, cat = item.cat_id )}}">
+        <a href="{{url_for('showItemDes', item = item.id, cat = item.cat_id )}}">
         <li>{{ item.title }}   </li>
           </a>
         {% endfor %}

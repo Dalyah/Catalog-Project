@@ -12,6 +12,13 @@
         {{ item.description }}
       </p>
 
+      {% if 'logged_in' in session %}
+      <section>
+        <a href ="{{item.id}}/edit" class ='btn btn-primary'> Edit</a>
+        <a href = "{{item.id}}/delete" class ='btn btn-primary'> Delete</a>
+      </section>
+      {% endif %}
+
     </div>
     <div class="col-sm-2 sidenav">
     </div>
