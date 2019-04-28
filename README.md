@@ -1,6 +1,7 @@
 # Item Catalog Application
 It is a catalog application to retrieve, add, update and delete items from
 different categories. This project was prepared as part of Udacity Full-Stack Nanodegree program.
+The project includes designing a database, API endpoits, CURD and Front-End.
 
 # Requirements and Installation
 
