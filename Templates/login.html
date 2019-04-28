@@ -1,6 +1,46 @@
-{% extends "main.html" %}
+ {% extends "main.html" %}
 
 {% block content %}
+
+<!-- GOOGLE SIGN IN CODE -->
+<script>
+  gapi.load('auth2', function() {
+    auth2 = gapi.auth2.init({
+      client_id: '751702602717-n3fmf1rdb4jf13mu9o5fh8n2vj5b3s1v.apps.googleusercontent.com',
+    });
+  });
+function signInCallback(json) {
+  console.log('inside callback fuction');
+  console.log(json);
+  // authResult = JSON.parse(json);
+  authResult = json;
+  if (authResult['code']) {
+    // Hide the sign-in button now that the user is authorized, for example:
+    $('#signinButton').attr('style', 'display: none');
+      // $('#result').html('One-Time Auth Code:</br>'+ authResult['code'] + '')
+    // Send the code to the server
+    $.ajax({
+      type: 'POST',
+      url: '/gconnect?state={{STATE}}',
+      processData: false,
+      data: authResult['code'],
+      contentType: 'application/octet-stream; charset=utf-8',
+      success: function(result) {
+          // Handle or verify the server response if necessary.
+          if (result) {
+            $('#result').html('Login Successful!</br>'+ result + '')
+          window.location.href = "/catalog";
+
+        } else if (authResult['error']) {
+          console.log('There was an error: ' + authResult['error']);
+        } else {
+          $('#result').html('Failed to make a server-side call. Check your configuration and console.');
+        }
+      }
+    });
+  }
+}
+</script>
 
   <div class="row content">
     <div class="col-sm-2 sidenav">
@@ -19,8 +59,19 @@
         <input type="password" class="form-control" name="password" placeholder="">
       </div>
       <button type="submit" class="btn btn-primary">Login</button>
+       OR
+       <br />
+       <br />
+       <!-- GOOGLE PLUS SIGN IN BUTTON-->
+       <button  class="g-signin2" id="signinButton">Sign in with Google</button>
+        <script>
+          $('#signinButton').click(function() {
+            auth2.grantOfflineAccess({'redirect_uri': 'postmessage'}).then(signInCallback);
+          });
+        </script>
+      <!-- GOOGLE PLUS SIGN IN BUTTON-->
 
-      </form>
+      <div id ="result"></div>
 
     </div>
     <div class="col-sm-2 sidenav">
