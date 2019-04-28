@@ -16,43 +16,47 @@ DBSession = sessionmaker(bind=engine)
 session = DBSession()
 app = Flask(__name__)
 
+
 def addUser(username, password):
     user = session.query(User).filter_by(username=username).first()
     if user is not None:
         print "existing user"
     else:
-        user = User(username = username)
+        user = User(username=username)
         user.hash_password(password)
         session.add(user)
         session.commit()
 
+
 def addCategory(id, name):
-    cat = session.query(Category).filter_by(id = id).first()
+    cat = session.query(Category).filter_by(id=id).first()
     if cat is not None:
         print "existing category"
         # return jsonify({'message':'category already exists'})
-    cat = Category(name = name)
+    cat = Category(name=name)
     session.add(cat)
     session.commit()
     # return jsonify({ 'id': cat.id, 'name' : cat.name })
 
-def addItem(id,title, des, cat_id):
 
-    item = session.query(Item).filter_by(id = id).first()
+def addItem(id, title, des, cat_id):
+
+    item = session.query(Item).filter_by(id=id).first()
     if item is not None:
         print "existing item"
         # return jsonify({'message':'item already exists'})
-    item = Item(description = des, title= title, cat_id = cat_id)
+    item = Item(description=des, title=title, cat_id=cat_id)
     session.add(item)
     session.commit()
     # return jsonify({ 'id': item.id, 'description' : item.description,
     #                  'title': item.title, 'cat ID': item.cat_id })
 
+
 if __name__ == '__main__':
     addUser('Admin', '123')
     addCategory(1, 'Hobbies')
-    addItem(1, 'Reading', 'Reading is helpful to gain knowledge and relax', 1 )
-    addItem(2, 'Shopping', 'Some people feel great while shopping', 1 )
+    addItem(1, 'Reading', 'Reading is helpful to gain knowledge and relax', 1)
+    addItem(2, 'Shopping', 'Some people feel great while shopping', 1)
 
     addCategory(2, 'Sports')
     addItem(1, 'Running', 'Running is needed for Heart Health', 2)
