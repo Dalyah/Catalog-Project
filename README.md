@@ -26,3 +26,10 @@ In order to get this project running, you need to follow these steps:
   5. Run the application by executing the following command:
       python views.py
   6. Go to http://localhost:5000/ and enjoy the application
+
+## Login
+To be able to add, edit and delete in this project, you have to login.
+You can login using :
+  * username: Admin
+  * password" 123
+Or you can use your google acount for signing in.
